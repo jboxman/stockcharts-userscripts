@@ -6,6 +6,7 @@ Small [Violentmonkey](https://violentmonkey.github.io/) userscripts for StockCha
 
 - [Asymmetric Two-Chart Layout](scripts/stockcharts-acp-asymmetric-two-chart-layout.user.js) — makes horizontal two-chart layouts one-third left and two-thirds right.
 - [ChartList Shortcuts](scripts/stockcharts-acp-chartlist-shortcuts.user.js) — navigates ChartLists with `[` and `]`.
+- [Download Chart Shortcut](scripts/stockcharts-acp-download-chart.user.js) — downloads the current ACP chart layout with `Option+Shift+C` and names it from the applied layout, symbols, and timestamp.
 - [Starred Symbols](scripts/stockcharts-acp-starred-symbols.user.js) — stars ChartList symbols and copies them into a new ChartList.
 - [Finviz Screener Copy All Symbols](scripts/finviz-screener-copy-symbols.user.js) — fetches every screener results page and copies its symbols.
 
