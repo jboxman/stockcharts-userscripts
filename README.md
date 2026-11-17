@@ -9,6 +9,7 @@ Small [Violentmonkey](https://violentmonkey.github.io/) userscripts for StockCha
 - [Download Chart Shortcut](scripts/stockcharts-acp-download-chart.user.js) — downloads the current ACP chart layout with `Option+Shift+C` and names it from the applied layout, symbols, and timestamp.
 - [Starred Symbols](scripts/stockcharts-acp-starred-symbols.user.js) — stars ChartList symbols and copies them into a new ChartList.
 - [Classic Focus Stars](scripts/stockcharts-classic-focus-stars.user.js) — stages symbols and synchronizes stars with a Focus ChartList.
+- [Classic Chart Styles](scripts/stockcharts-classic-chart-styles.user.js) — switches displayed SharpCharts between saved chart styles.
 - [Finviz Screener Copy All Symbols](scripts/finviz-screener-copy-symbols.user.js) — fetches every screener results page and copies its symbols.
 
 ## Install
