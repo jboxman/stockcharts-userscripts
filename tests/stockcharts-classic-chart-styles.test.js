@@ -1,6 +1,7 @@
 const assert = require('node:assert/strict');
 
 const {
+    isStyleScopeCurrent,
     rewriteStyleUrl,
 } = require('../scripts/stockcharts-classic-chart-styles.user.js');
 
@@ -51,6 +52,20 @@ assert.equal(
 assert.equal(
     rewriteStyleUrl('/images/logo.svg', daily, 123),
     '/images/logo.svg'
+);
+assert.equal(
+    isStyleScopeCurrent(
+        'https://stockcharts.com/panels/?listNum=7',
+        'https://stockcharts.com/panels/?listNum=7'
+    ),
+    true
+);
+assert.equal(
+    isStyleScopeCurrent(
+        'https://stockcharts.com/panels/?listNum=7',
+        'https://stockcharts.com/panels/?listNum=8'
+    ),
+    false
 );
 
 console.log('StockCharts Classic Chart Styles self-check passed');

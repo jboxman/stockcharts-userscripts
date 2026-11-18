@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         StockCharts Classic Chart Styles
 // @namespace    local.stockcharts.classic
-// @version      1.0.1
+// @version      1.0.2
 // @description  Switch displayed SharpCharts between saved chart styles.
 // @match        https://stockcharts.com/panels*
 // @match        https://www.stockcharts.com/panels*
@@ -27,7 +27,6 @@
             parameters: { p: 'W', b: '5', g: '2' },
         },
     ];
-    const STORAGE_KEY = 'vm-stockcharts-classic-chart-style-v1';
     const IMAGE_SELECTOR = [
         'img[src*="/c-sc/sc?"]',
         'img[data-src*="/c-sc/sc?"]',
@@ -70,13 +69,14 @@
         }
     }
 
-    function init() {
-        let selectedStyle = localStorage.getItem(STORAGE_KEY) || '';
-        let updateQueued = false;
+    function isStyleScopeCurrent(selectedScope, currentUrl) {
+        return selectedScope === currentUrl;
+    }
 
-        if (!STYLES.some(style => style.id === selectedStyle)) {
-            selectedStyle = '';
-        }
+    function init() {
+        let selectedStyle = '';
+        let selectedScope = '';
+        let updateQueued = false;
 
         function applyStyleToImage(image, chartStyle) {
             for (const attribute of ['src', 'data-src']) {
@@ -107,7 +107,7 @@
                 button.dataset.styleId = chartStyle.id;
                 button.addEventListener('click', () => {
                     selectedStyle = chartStyle.id;
-                    localStorage.setItem(STORAGE_KEY, selectedStyle);
+                    selectedScope = location.href;
                     render();
                 });
                 toolbar.append(button);
@@ -127,6 +127,14 @@
         }
 
         function render() {
+            if (
+                selectedStyle &&
+                !isStyleScopeCurrent(selectedScope, location.href)
+            ) {
+                selectedStyle = '';
+                selectedScope = '';
+            }
+
             createToolbar();
             updateToolbar();
 
@@ -189,19 +197,11 @@
             subtree: true,
         });
 
-        window.addEventListener('storage', event => {
-            if (event.key !== STORAGE_KEY) return;
-            selectedStyle = STYLES.some(style => style.id === event.newValue)
-                ? event.newValue
-                : '';
-            render();
-        });
-
         render();
     }
 
     if (typeof module === 'object') {
-        module.exports = { rewriteStyleUrl };
+        module.exports = { isStyleScopeCurrent, rewriteStyleUrl };
     } else {
         init();
     }
